@@ -1,0 +1,13 @@
+Hi everyone!
+
+Included is our JavaScript library for using the API with our Universal Embed code.
+We suggest that you either host the JS file yourself, or link to our official hosted copy:
+
+http://a.vimeocdn.com/js/froogaloop2.min.js
+
+For more information on the JS API, see the documentation page:
+
+http://vimeo.com/api/docs/player-js
+
+Until we meet again!
+- Brad (3/25/2011)

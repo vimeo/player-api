@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!--ant-->
+<!--
+    Created by Ryan Hefner on 2011-03-25.
+    Copyright (c) 2010-2011 Vimeo. All rights reserved.
+-->
+<project name="Flash API Example" default="compile" basedir="../../">
+    <description>Build and deploy the Flash API Example swf.</description>
+
+    <property file="ant/properties/build.properties" />
+
+    <!-- Moogaloop Properties -->
+    <property name="swfname" value="flash_api_example.swf" />
+    <property name="link-report" value="link_report.txt" />
+
+    <!-- General Player Properties -->
+    <property name="width" value="640" />
+    <property name="height" value="360" />
+
+    <!-- Targets -->
+    <target name="compile">
+        <exec executable="${mxmlc.sv}">
+            <arg value="-as3=true" />
+            <arg value="-compatibility-version=3.0.0" />
+            <arg value="-source-path" />
+            <arg value="${classroot.dir}" />
+            <arg value="-library-path" />
+            <arg value="${libs.sv.dir}" />
+            <arg line="-swf-version=11" />
+            <arg line="-target-player=${sv_targetplayer}" />
+            <arg line="-default-frame-rate=${framerate}" />
+            <arg line="-default-background-color=${bgcolor}" />
+            <arg value="-default-size" />
+            <arg value="${width}" />
+            <arg value="${height}" />
+            <arg line="-debug=false" />
+            <arg line="-optimize=true" />
+            <arg line="-strict=true" />
+            <arg line="-warnings=false" />
+            <arg line="-show-unused-type-selector-warnings=true" />
+            <arg value="${classroot.dir}/com/vimeo/example/ExampleProject.as" />
+            <arg value="-output" />
+            <arg value="${root.dir}/deploy/${swfname}" />
+            <arg value="-link-report" />
+            <arg value="${reports.dir}/${link-report}" />
+            <arg value="-static-link-runtime-shared-libraries" />
+        </exec>
+    </target>
+</project>

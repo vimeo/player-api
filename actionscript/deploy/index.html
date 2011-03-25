@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Vimeo: Flash API Example</title>
+</head>
+<body>
+<div id="player">
+    <noscript>
+        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0" width="640" height="360" id="flash_api_example" align="middle">
+            <param name="allowScriptAccess" value="always" />
+            <param name="allowFullScreen" value="true" />
+            <param name="movie" value="flash_api_example.swf" />
+            <param name="quality" value="high" />
+            <param name="bgcolor" value="#000000" />
+            <embed src="flash_api_example.swf" quality="high" bgcolor="#000000" width="640" height="360" name="flash_api_example" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" />
+        </object>
+    </noscript>
+</div>
+<script type="text/javascript" src="assets/js/swfobject.js"></script>
+<script type="text/javascript" language="javascript">
+    var flashvars = {};
+
+    var params = {
+        bgcolor: "#000000",
+        wmode: "opaque",
+        allowscriptaccess: "always",
+        allowfullscreen: true
+    };
+
+    var attributes = {
+      id: "flash_api_example",
+      name: "flash_api_example"
+    };
+
+    swfobject.embedSWF("flash_api_example.swf", "player", "640", "360", "10.0.0", "assets/swf/expressInstall.swf", flashvars, params, attributes);
+</script>
+</body>
+</html>
