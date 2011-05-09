@@ -17,20 +17,18 @@
  */
 package com.vimeo.api
 {
-    import flash.net.URLRequest;
     import flash.display.DisplayObject;
     import flash.display.Loader;
     import flash.display.Sprite;
     import flash.events.Event;
-    import flash.events.TimerEvent;
     import flash.events.MouseEvent;
+    import flash.events.TimerEvent;
     import flash.external.ExternalInterface;
     import flash.geom.Point;
-    import flash.utils.Timer;
-    import flash.system.ApplicationDomain;
+    import flash.net.URLRequest;
     import flash.system.LoaderContext;
     import flash.system.Security;
-    import flash.system.SecurityDomain;
+    import flash.utils.Timer;
 
 
     public class VimeoPlayer extends Sprite {
@@ -70,9 +68,10 @@ package com.vimeo.api
             this.setDimensions(w, h);
 
             Security.allowDomain('*');
-            Security.loadPolicyFile('http://api.vimeo.com/crossdomain.xml');
+            Security.allowInsecureDomain('*');
 
             var api_param : String = '&js_api=1';
+            this.api_version = api_version;
 
             //
             if (fp_version != '9')
@@ -84,14 +83,18 @@ package com.vimeo.api
                         break;
                 }
             }
-
-            // var loaderContext : LoaderContext = new LoaderContext(true, ApplicationDomain.currentDomain, SecurityDomain.currentDomain);
+            else
+            {
+                this.api_version = 1;
+            }
 
             var request : URLRequest = new URLRequest("http://api.vimeo.com/moogaloop_api.swf?oauth_key=" + oauth_key + "&clip_id=" + clip_id + "&width=" + w + "&height=" + h + "&fullscreen=0&fp_version=" + fp_version + api_param + "&cache_buster=" + (Math.random() * 1000));
 
+            var loaderContext : LoaderContext = new LoaderContext(true);
+
             var loader : Loader = new Loader();
             loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete, false, 0, true);
-            loader.load(request);
+            loader.load(request, loaderContext);
         }
 
         public function destroy() : void
@@ -262,12 +265,7 @@ package com.vimeo.api
         public function setSize(w:int, h:int) : void
         {
             this.setDimensions(w, h);
-
-            var size : Object = new Object();
-            size.width = w;
-            size.height = h;
-            moogaloop.size = size;
-
+            moogaloop.setSize(w, h);
             this.redrawMask();
         }
 
