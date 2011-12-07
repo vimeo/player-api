@@ -1,7 +1,7 @@
-// Init style shamelessly stolen from jQuery http://jquery.com
 alert('Remove this line before using in production!');
-var Froogaloop = (function(){
 
+// Init style shamelessly stolen from jQuery http://jquery.com
+var Froogaloop = (function(){
     // Define a local copy of Froogaloop
     function Froogaloop(iframe) {
         // The Froogaloop object is actually just the init constructor
@@ -10,11 +10,11 @@ var Froogaloop = (function(){
 
     var eventCallbacks = {},
         hasWindowEvent = false,
-        slice = Array.prototype.slice;
+        isReady = false,
+        slice = Array.prototype.slice,
+        playerDomain = '';
 
     Froogaloop.fn = Froogaloop.prototype = {
-        playerDomain: '',
-
         element: null,
 
         init: function(iframe) {
@@ -23,6 +23,10 @@ var Froogaloop = (function(){
             }
 
             this.element = iframe;
+
+            // Register message event listeners
+            playerDomain = getDomainFromUrl(this.element.getAttribute('src'));
+
             return this;
         },
 
@@ -40,7 +44,7 @@ var Froogaloop = (function(){
 
             var self = this,
                 element = self.element,
-                target_id = element.id != '' ? element.id : null,
+                target_id = element.id !== '' ? element.id : null,
                 params = !isFunction(valueOrCallback) ? valueOrCallback : null,
                 callback = isFunction(valueOrCallback) ? valueOrCallback : null;
 
@@ -66,7 +70,7 @@ var Froogaloop = (function(){
 
             var self = this,
                 element = self.element,
-                target_id = element.id != '' ? element.id : null;
+                target_id = element.id !== '' ? element.id : null;
 
 
             storeCallback(eventName, callback, target_id);
@@ -75,25 +79,10 @@ var Froogaloop = (function(){
             if (eventName != 'ready') {
                 postMessage('addEventListener', eventName, element);
             }
-
-            // Register message event listeners
-            if (hasWindowEvent) {
-                return self;
+            else if (eventName == 'ready' && isReady) {
+                callback.call(null, target_id);
             }
 
-            playerDomain = getDomainFromUrl(element.getAttribute('src'));
-
-            // Listens for the message event.
-            // W3C
-            if (window.addEventListener) {
-                window.addEventListener('message', onMessageReceived, false);
-            }
-            // IE
-            else {
-                window.attachEvent('onmessage', onMessageReceived, false);
-            }
-
-            hasWindowEvent = true;
             return self;
         },
 
@@ -109,7 +98,7 @@ var Froogaloop = (function(){
 
             var self = this,
                 element = self.element,
-                target_id = element.id != '' ? element.id : null,
+                target_id = element.id !== '' ? element.id : null,
                 removed = removeCallback(eventName, target_id);
 
             // The ready event is not registered
@@ -148,16 +137,28 @@ var Froogaloop = (function(){
      * via window.postMessage.
      */
     function onMessageReceived(event) {
+        var data, method;
+
+        try {
+            data = JSON.parse(event.data);
+            method = data.event || data.method;
+        }
+        catch(e)  {
+            //fail silently... like a ninja!
+        }
+
+        if (method == 'ready' && !isReady) {
+            isReady = true;
+        }
+
         // Handles messages from moogaloop only
         if (event.origin != playerDomain) {
             return false;
         }
 
-        var data = JSON.parse(event.data),
-            value = data.value,
-            method = data.event || data.method,
+        var value = data.value,
             eventData = data.data,
-            target_id = target_id == '' ? null : data.player_id,
+            target_id = target_id === '' ? null : data.player_id,
 
             callback = getCallback(method, target_id),
             params = [];
@@ -264,6 +265,16 @@ var Froogaloop = (function(){
 
     // Give the init function the Froogaloop prototype for later instantiation
     Froogaloop.fn.init.prototype = Froogaloop.fn;
+
+    // Listens for the message event.
+    // W3C
+    if (window.addEventListener) {
+        window.addEventListener('message', onMessageReceived, false);
+    }
+    // IE
+    else {
+        window.attachEvent('onmessage', onMessageReceived, false);
+    }
 
     // Expose froogaloop to the global object
     return (window.Froogaloop = window.$f = Froogaloop);
