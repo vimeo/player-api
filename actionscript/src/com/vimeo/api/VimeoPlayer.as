@@ -191,7 +191,7 @@ package com.vimeo.api
                 moogaloop.disableMouseMove();
                 if (stage)
                 {
-                    stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+                    stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove, false, 0, true);
                 }
 
                 dispatchEvent(new Event(Event.COMPLETE));
@@ -203,15 +203,18 @@ package com.vimeo.api
          */
         private function mouseMove(e:MouseEvent) : void
         {
-            var pos : Point = this.parent.localToGlobal(new Point(this.x, this.y));
-            if (e.stageX >= pos.x && e.stageX <= pos.x + this.player_width &&
-                e.stageY >= pos.y && e.stageY <= pos.y + this.player_height)
+            if (moogaloop && moogaloop.player_loaded)
             {
-                moogaloop.mouseMove(e);
-            }
-            else
-            {
-                moogaloop.mouseOut();
+                var pos : Point = this.parent.localToGlobal(new Point(this.x, this.y));
+                if (e.stageX >= pos.x && e.stageX <= pos.x + this.player_width &&
+                    e.stageY >= pos.y && e.stageY <= pos.y + this.player_height)
+                {
+                    moogaloop.mouseMove(e);
+                }
+                else
+                {
+                    moogaloop.mouseOut();
+                }
             }
         }
 
@@ -285,7 +288,7 @@ package com.vimeo.api
         private function removedFromStageHandler(event:Event) : void
         {
             stage.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
-            this.removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler, false, 0, true);
+            this.removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
         }
 
         /**
