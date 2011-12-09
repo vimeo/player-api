@@ -95,6 +95,8 @@ package com.vimeo.api
             var loader : Loader = new Loader();
             loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onComplete, false, 0, true);
             loader.load(request, loaderContext);
+
+            this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler, false, 0, true);
         }
 
         public function destroy() : void
@@ -187,7 +189,10 @@ package com.vimeo.api
 
                 // remove moogaloop's mouse listeners listener
                 moogaloop.disableMouseMove();
-                stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+                if (stage)
+                {
+                    stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+                }
 
                 dispatchEvent(new Event(Event.COMPLETE));
             }
@@ -267,6 +272,20 @@ package com.vimeo.api
             this.setDimensions(w, h);
             moogaloop.setSize(w, h);
             this.redrawMask();
+        }
+
+        // Event Handlers ____________________________________________________
+
+        private function addedToStageHandler(event:Event) : void
+        {
+            stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+            this.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler, false, 0, true);
+        }
+
+        private function removedFromStageHandler(event:Event) : void
+        {
+            stage.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMove);
+            this.removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler, false, 0, true);
         }
 
         /**
