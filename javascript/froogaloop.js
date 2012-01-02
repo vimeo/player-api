@@ -128,8 +128,8 @@ var Froogaloop = (function(){
                 method: method,
                 value: params
             });
-            
-        if(url.substr(0, 2) === '//') {
+
+        if (url.substr(0, 2) === '//') {
             url = window.location.protocol + url;
         }
 
@@ -247,11 +247,10 @@ var Froogaloop = (function(){
      * @return url (String): Root domain of submitted url
      */
     function getDomainFromUrl(url) {
-        
-        if(url.substr(0, 2) === '//') {
+        if (url.substr(0, 2) === '//') {
             url = window.location.protocol + url;
         }
-        
+
         var url_pieces = url.split('/'),
             domain_str = '';
 
@@ -282,7 +281,7 @@ var Froogaloop = (function(){
     }
     // IE
     else {
-        window.attachEvent('onmessage', onMessageReceived, false);
+        window.attachEvent('onmessage', onMessageReceived);
     }
 
     // Expose froogaloop to the global object
