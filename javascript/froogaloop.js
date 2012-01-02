@@ -128,6 +128,10 @@ var Froogaloop = (function(){
                 method: method,
                 value: params
             });
+            
+        if(url.substr(0, 2) === '//') {
+            url = window.location.protocol + url;
+        }
 
         target.contentWindow.postMessage(data, url);
     }
@@ -243,6 +247,11 @@ var Froogaloop = (function(){
      * @return url (String): Root domain of submitted url
      */
     function getDomainFromUrl(url) {
+        
+        if(url.substr(0, 2) === '//') {
+            url = window.location.protocol + url;
+        }
+        
         var url_pieces = url.split('/'),
             domain_str = '';
 
