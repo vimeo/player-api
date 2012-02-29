@@ -273,7 +273,12 @@ package com.vimeo.api
         public function setSize(w:int, h:int) : void
         {
             this.setDimensions(w, h);
-            moogaloop.setSize(w, h);
+            
+            if(moogaloop != false)
+            {
+                moogaloop.setSize(w, h);
+            }
+
             this.redrawMask();
         }
 
