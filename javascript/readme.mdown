@@ -5,7 +5,7 @@ We suggest that you either host the JS file yourself, or link to our official ho
 
 [http://a.vimeocdn.com/js/froogaloop2.min.js](http://a.vimeocdn.com/js/froogaloop2.min.js)
 
-For more information on the JS API, see [our player documentation page](http://vimeo.com/api/docs/player-js).
+For more information on the JS API, see [our player documentation page](https://developer.vimeo.com/player/js-api).
 
 Until we meet again!
 - Brad (3/25/2011)
