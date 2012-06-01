@@ -1,7 +1,7 @@
 alert('Remove this line before using in production!');
 
 // Init style shamelessly stolen from jQuery http://jquery.com
-var Froogaloop = (function(){
+var Froogaloop = (function(window){
     // Define a local copy of Froogaloop
     function Froogaloop(iframe) {
         // The Froogaloop object is actually just the init constructor
@@ -287,4 +287,4 @@ var Froogaloop = (function(){
     // Expose froogaloop to the global object
     return (window.Froogaloop = window.$f = Froogaloop);
 
-})();
+})(window);
