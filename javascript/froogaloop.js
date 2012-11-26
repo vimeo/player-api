@@ -10,12 +10,13 @@ var Froogaloop = (function(){
 
     var eventCallbacks = {},
         hasWindowEvent = false,
-        isReady = false,
+        // isReady = false,
         slice = Array.prototype.slice,
         playerDomain = '';
 
     Froogaloop.fn = Froogaloop.prototype = {
         element: null,
+        isReady: false,
 
         init: function(iframe) {
             if (typeof iframe === "string") {
@@ -79,7 +80,7 @@ var Froogaloop = (function(){
             if (eventName != 'ready') {
                 postMessage('addEventListener', eventName, element);
             }
-            else if (eventName == 'ready' && isReady) {
+            else if (eventName == 'ready' && this.isReady) {
                 callback.call(null, target_id);
             }
 
@@ -151,8 +152,8 @@ var Froogaloop = (function(){
             //fail silently... like a ninja!
         }
 
-        if (method == 'ready' && !isReady) {
-            isReady = true;
+        if (method == 'ready' && !this.isReady) {
+            this.isReady = true;
         }
 
         // Handles messages from moogaloop only
