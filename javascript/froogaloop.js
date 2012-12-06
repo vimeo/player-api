@@ -9,7 +9,6 @@ var Froogaloop = (function(){
     }
 
     var eventCallbacks = {},
-        hasWindowEvent = false,
         isReady = false,
         slice = Array.prototype.slice,
         playerDomain = '';
