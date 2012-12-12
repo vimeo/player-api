@@ -11,6 +11,7 @@ var Froogaloop = (function(){
     var eventCallbacks = {},
         hasWindowEvent = false,
         isReady = false,
+        calledReadyCallback = false,
         slice = Array.prototype.slice,
         playerDomain = '';
 
@@ -79,7 +80,7 @@ var Froogaloop = (function(){
             if (eventName != 'ready') {
                 postMessage('addEventListener', eventName, element);
             }
-            else if (eventName == 'ready' && isReady) {
+            else if (eventName == 'ready' && isReady && !calledReadyCallback) {
                 callback.call(null, target_id);
             }
 
@@ -169,6 +170,10 @@ var Froogaloop = (function(){
 
         if (!callback) {
             return false;
+        } else if (method == 'ready') {
+          // We are about to execute the ready callback, so ensure that addEvent
+          // does not also do it.
+          calledReadyCallback = true
         }
 
         if (value !== undefined) {
