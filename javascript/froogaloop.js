@@ -162,7 +162,7 @@ var Froogaloop = (function(){
 
         var value = data.value,
             eventData = data.data,
-            target_id = target_id === '' ? null : data.player_id,
+            target_id = data.player_id,
 
             callback = getCallback(method, target_id),
             params = [];
