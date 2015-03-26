@@ -88,7 +88,7 @@ package com.vimeo.api
                 this.api_version = 1;
             }
 
-            var request : URLRequest = new URLRequest("http://api.vimeo.com/moogaloop_api.swf?oauth_key=" + oauth_key + "&clip_id=" + clip_id + "&width=" + w + "&height=" + h + "&fullscreen=0&fp_version=" + fp_version + api_param + "&cache_buster=" + (Math.random() * 1000));
+            var request : URLRequest = new URLRequest("https://vimeo.com/moogaloop_api.swf?oauth_key=" + oauth_key + "&clip_id=" + clip_id + "&width=" + w + "&height=" + h + "&fullscreen=0&fp_version=" + fp_version + api_param + "&cache_buster=" + (Math.random() * 1000));
 
             var loaderContext : LoaderContext = new LoaderContext(true);
 
