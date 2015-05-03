@@ -208,7 +208,7 @@ var Froogaloop = (function(){
      * Retrieves stored callbacks.
      */
     function getCallback(eventName, target_id) {
-        if (target_id) {
+        if (target_id && eventCallbacks[target_id] != undefined) {
             return eventCallbacks[target_id][eventName];
         }
         else {
