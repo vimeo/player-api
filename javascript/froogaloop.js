@@ -8,7 +8,6 @@ var Froogaloop = (function(){
 
     var eventCallbacks = {},
         hasWindowEvent = false,
-        isReady = false,
         slice = Array.prototype.slice,
         playerOrigin = '*';
 
@@ -21,6 +20,7 @@ var Froogaloop = (function(){
             }
 
             this.element = iframe;
+            this.element.$f_isReady = false;
 
             return this;
         },
@@ -74,7 +74,7 @@ var Froogaloop = (function(){
             if (eventName != 'ready') {
                 postMessage('addEventListener', eventName, element);
             }
-            else if (eventName == 'ready' && isReady) {
+            else if (eventName == 'ready' && element.$f_isReady) {
                 callback.call(null, target_id);
             }
 
@@ -126,7 +126,7 @@ var Froogaloop = (function(){
         target.contentWindow.postMessage(data, playerOrigin);
     }
 
-    /**
+  /**
      * Event that fires whenever the window receives a message from its parent
      * via window.postMessage.
      */
@@ -141,10 +141,6 @@ var Froogaloop = (function(){
             //fail silently... like a ninja!
         }
 
-        if (method == 'ready' && !isReady) {
-            isReady = true;
-        }
-
         // Handles messages from the vimeo player only
         if (!(/^https?:\/\/player.vimeo.com/).test(event.origin)) {
             return false;
@@ -157,9 +153,13 @@ var Froogaloop = (function(){
         var value = data.value,
             eventData = data.data,
             target_id = target_id === '' ? null : data.player_id,
-
+            iframe = document.getElementById(target_id),
             callback = getCallback(method, target_id),
             params = [];
+
+        if (method == 'ready' && !iframe.$f_isReady) {
+          iframe.$f_isReady = true;
+        }
 
         if (!callback) {
             return false;
