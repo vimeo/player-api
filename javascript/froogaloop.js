@@ -217,11 +217,12 @@ var Froogaloop = (function(){
     }
 
     function removeCallback(eventName, target_id) {
-        if (target_id && eventCallbacks[target_id]) {
-            if (!eventCallbacks[target_id][eventName]) {
+        if (target_id) {
+            var targetCallbacks = eventCallbacks[target_id];
+            if (!targetCallbacks || !targetCallbacks[eventName]) {
                 return false;
             }
-            eventCallbacks[target_id][eventName] = null;
+            targetCallbacks[eventName] = null;
         }
         else {
             if (!eventCallbacks[eventName]) {
