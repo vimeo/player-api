@@ -1,0 +1,23 @@
+{
+  "name": "froogaloop",
+  "version": "1.0.0",
+  "description": "JavaScript library for using the Vimeo API with Universal Embed code",
+  "main": "javascript/froogaloop.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vimeo/player-api.git"
+  },
+  "keywords": [
+    "Vimeo",
+    "Froogaloop"
+  ],
+  "author": "Vimeo (http://github.com/vimeo)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/vimeo/player-api/issues"
+  },
+  "homepage": "https://github.com/vimeo/player-api"
+}
