@@ -1,3 +1,5 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 Hey everyone,
 
 Here is an example Flash AS3 project that shows you how to use the VimeoPlayer.as class that we have provided for you within an example project. This example assumes that you have some prior Action Script coding experience and familiarity with object oriented development.

@@ -1,5 +1,7 @@
 # Vimeo Player API Examples
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 These are some examples and helpful things for using the Vimeo Player in your projects.
 
 Included are both Flash and JavaScript examples.

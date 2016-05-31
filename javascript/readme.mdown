@@ -1,3 +1,5 @@
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 Hi everyone!
 
 Included is our JavaScript library for using the API with our Universal Embed code.
