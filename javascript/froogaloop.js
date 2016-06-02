@@ -209,6 +209,9 @@ var Froogaloop = (function(){
      */
     function getCallback(eventName, target_id) {
         if (target_id) {
+            if (!eventCallbacks[target_id]) {
+                return null;
+            }
             return eventCallbacks[target_id][eventName];
         }
         else {
