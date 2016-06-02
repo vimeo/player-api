@@ -134,7 +134,7 @@ var Froogaloop = (function(){
         var data, method;
 
         try {
-            data = JSON.parse(event.data);
+            data = ( typeof event.data === 'string' ? JSON.parse(event.data) : event.data );
             method = data.event || data.method;
         }
         catch(e)  {
