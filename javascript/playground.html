@@ -411,7 +411,7 @@
                             });
                         }, false);
 
-                        // Get the paused state and log it to the API console when time button clicked
+                        // Get the volume and log it to the API console when get volume button clicked
                         addEvent(getVolumeBtn, 'click', function(e) {
                             froogaloop.api('getVolume', function (value, player_id) {
                                 // Log out the value in the API Console
@@ -419,7 +419,7 @@
                             });
                         }, false);
 
-                        // Get the paused state and log it to the API console when time button clicked
+                        // Get the video width and log it to the API console when get video width button clicked
                         addEvent(widthBtn, 'click', function(e) {
                             froogaloop.api('getVideoWidth', function (value, player_id) {
                                 // Log out the value in the API Console
